@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "vehicle_service_analytics/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "vehicle_service_analytics/wsgi.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "vehicle_service_analytics/wsgi.py"
+    }
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "vehicle_service_analytics.settings",
+    "PYTHONPATH": "."
+  }
+}
